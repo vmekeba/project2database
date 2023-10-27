@@ -1,3 +1,3 @@
-# project2database
+# pantryfooddata
 
-Patrice's MM621 Data Viz Project.
+This is a project for school class ###. Here is my code, enjoy! 
