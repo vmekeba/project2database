@@ -1,40 +1,51 @@
 let data;
-let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQADMbvtgD_CBG5kIv64DtRNuqYIooQd5F0QiJWi46L2A96U_xoHd-oe-bxMO6rqCMcMsAKKA9H2PF5/pub?gid=0&single=true&output=csv";
-
-
+let url =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQGkTzDQGe3aUvnCxEpCp4mvAliUd-_kIcpsiwsNMPcuZK1XnZhM-sKKDQiY-XvOrqrwiwMxLxojOMl/pub?gid=0&single=true&output=csv";
 function preload() {
-  data = loadTable(url, 'csv', 'header');
+  data = loadTable(url, "csv", "header");
 }
 
 function setup() {
-  let canvas = createCanvas(400, 400);
-  canvas.parent('data');
+  let canvas = createCanvas(800, 400);
+  //canvas.parent('data');
   //noLoop();
-
 }
 
 function draw() {
-  background(50);
+  background(255, 230, 243);
 
   if (data) {
     let numRows = data.getRowCount();
-
-    let carbs = data.getColumn('Carbs');
-    let names = data.getColumn('Food');
-
-    rect(50, 350, carbs[0], 10);
+    let bloom = data.getColumn("Blooming Days Per Year");
+    let flowers = data.getColumn("Flowers per Stem");
 
     for (let i = 0; i < numRows; i++) {
-      let x = 50;
-      let y = 100 + (i * 50);
-      let w = carbs[i]*5;
-      let h = 10;
+      //text(table.getString(i, 0) 2 * 6 + 60, 25);
 
+      let name = data.getString(i, "Common Name");
+      let x = 50;
+      let y = 100 + i * 50;
+      let h = 20;
+      let w = flowers[i] * 30;
+
+      fill(128, 0, 128);// I'm calling your fill command before all shapes
       rect(x, y, w, h);
 
-      fill(255);
-      textSize(14);
-      text(names[i], x, y - 5);
+      //fill(128, 0, 128); // here was the original placement of your fill command
+      textSize(18);
+      textStyle("bold")
+      textFont("Trebuchet MS")
+      text(name, x, y - 5);
+
+      //text within the bar graph
+      fill(255); //since this text is within the purple graph, I used a white fill for the text
+      text(flowers[i], x + 5, y + 15);
+
+      //text to the right of the bar graph
+      fill(128, 0, 128); //since this text is to the right of the purple graph, I used the purple color for the fill
+      //text(flowers[i], x + w + 5, y + 15);
+
+  
     }
   }
 }
